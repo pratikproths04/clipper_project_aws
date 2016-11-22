@@ -38,20 +38,20 @@ function createMessages(queueUrl){
 	for(var a=0; a<50; a++){
 		messages[a] = 'This is the content for message '+a+'.';
 	}
-}
 
-async.each(messages, function(content){
-	console.log('Sending message: '+content);
-	tempKey = content;
-	params = {
-			MessageBody: content,
-			QueueUrl: queueUrl
-	};
-	sqs.sendMessage(params, function(err, data){
-		if(err)	console.log(err, err.stack);
-		else	console.log(data);
+	async.each(messages, function(content){
+		console.log('Sending message: '+content);
+		tempKey = content;
+		params = {
+				MessageBody: content,
+				QueueUrl: queueUrl
+		};
+		sqs.sendMessage(params, function(err, data){
+			if(err)	console.log(err, err.stack);
+			else	console.log(data);
+		});
 	});
-})
+}
 
 
 var waitingSQS = false;
